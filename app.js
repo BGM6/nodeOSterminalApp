@@ -7,7 +7,7 @@ const runSearch = () => {
       name: 'userChoice',
       type: 'list',
       message: 'Choose an option',
-      choices: ['Cpu info', 'Network interfaces', 'Total memory', 'User info', 'Exit']
+      choices: ['Cpu info', 'Network interfaces', 'Total memory', 'User info', 'OS platform', 'Home directory', 'Exit']
     }).then((answer) => {
       switch (answer.userChoice) {
         case 'Cpu info':
@@ -22,16 +22,19 @@ const runSearch = () => {
         case 'User info':
           userInfo();
           break;
+        case 'OS platform':
+          osPlatform();
+          break;
+        case 'Home directory':
+          homeDir();
+          break;
         case 'Exit':
           break;
         default:
 
-
       }
     })
 };
-
-// model, speed, times { user, nice, sys, idel, irq}
 
 // Cpu info
 const cpuInfo = () => {
@@ -62,7 +65,17 @@ const userInfo = () => {
   runSearch();
 }
 
+const osPlatform = () => {
+  const platform = os.platform();
+  console.log(platform)
+  runSearch();
+}
 
+const homeDir = () => {
+  const directory = os.homedir();
+  console.log(directory);
+  runSearch();
+}
 
 runSearch();
 
