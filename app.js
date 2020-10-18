@@ -7,27 +7,37 @@ const runSearch = () => {
       name: 'userChoice',
       type: 'list',
       message: 'Choose an option',
-      choices: ['Cpu info', 'Network interfaces', 'Total memory', 'User info', 'OS platform', 'Home directory', 'Exit']
+      choices: ['Cpu info', 'Network interfaces', 'Total memory', 'User info', 'OS platform', 'Home directory', 'System uptime', 'Exit']
     }).then((answer) => {
       switch (answer.userChoice) {
         case 'Cpu info':
           cpuInfo();
           break;
+
         case 'Network interfaces':
           networkInfo();
           break;
+
         case 'Total memory':
           totalMemory();
           break;
+
         case 'User info':
           userInfo();
           break;
+
         case 'OS platform':
           osPlatform();
           break;
+
         case 'Home directory':
           homeDir();
           break;
+
+        case 'System uptime':
+          upTime();
+          break;
+
         case 'Exit':
           break;
         default:
@@ -36,15 +46,16 @@ const runSearch = () => {
     })
 };
 
+runSearch();
+
 // Cpu info
 const cpuInfo = () => {
   const cpus = os.cpus();
-  for (cpu of cpus) {
-    console.table(cpu);
+  for (let i = 0; i < cpus.length; i++) {
+    console.table(cpus[i]);
+    runSearch();
   }
-  runSearch();
 }
-
 // Network info
 const networkInfo = () => {
   const network = os.networkInterfaces();
@@ -77,5 +88,9 @@ const homeDir = () => {
   runSearch();
 }
 
-runSearch();
-
+const upTime = () => {
+  const timeInSeconds = os.uptime();
+  const timeInMin = timeInSeconds / 60;
+  console.log(`${timeInMin} minutes.`);
+  runSearch();
+}
